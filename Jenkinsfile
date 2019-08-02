@@ -17,8 +17,10 @@ node {
     }
     stage('Test image') {
         dockerImage.withRun() { c ->
-            // simple check that an application is bound to TCP port 3142 (hex 0x0C46)
-            sh "docker exec ${c.id} grep --silent 000000:0C46 /proc/net/tcp"
+            // simple check that we can see the admin page
+            sh "docker exec ${c.id} apt-get -qq update"
+            sh "docker exec ${c.id} apt-get install -y --no-install-recommends curl > /dev/null"
+            sh "docker exec ${c.id} curl -s http://localhost:3142/acng-report.html | grep 'Apt-Cacher NG Command And Control Page'"
         }
     }
     if (!gitTag) {
