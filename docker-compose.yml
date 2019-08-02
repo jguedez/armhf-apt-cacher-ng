@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  aptcache:
+    image: jguedez/apt-cacher-ng:v3.2-2
+    restart: "unless-stopped"
+    volumes:
+      - apt-cache:/var/cache/apt-cacher-ng
+    ports:
+      - 3142:3142
+volumes:
+    apt-cache:

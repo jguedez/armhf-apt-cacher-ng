@@ -1,0 +1,14 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.3
+  hooks:
+    - id: trailing-whitespace
+    - id: check-yaml
+
+- repo: local
+  hooks:
+    - id: hadolint
+      name: Hadolint (docker)
+      types: [dockerfile]
+      language: docker_image
+      entry: --entrypoint /bin/hadolint hadolint/hadolint:latest -
